@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ .Title }}</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        #title {
+            text-align: center;
+        }
+
+        #since {
+            position: absolute;
+            left: 0;
+        }
+
+        #refresh-section {
+            position: absolute;
+            right: 0;
+        }
+
+        #refresh-section > div {
+            overflow: auto;
+        }
+
+        #refresh-button {
+            float: right;
+        }
+
+        #last-refreshed {
+            display: block;
+        }
+
+        #copyright {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        table#scoreboard {
+            margin: auto;
+            border-spacing: 0;
+            font-size: 24px;
+        }
+
+        table#scoreboard tbody tr:nth-child(1) {
+            background-color: gold;
+        }
+
+        table#scoreboard tbody tr:nth-child(2) {
+            background-color: silver;
+        }
+
+        table#scoreboard tbody tr:nth-child(3) {
+            background-color: bronze;
+        }
+
+        table#scoreboard th, td {
+            padding: 15px;
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        function requestRefresh(button) {
+            button.disabled = true;
+            setTimeout(function() {
+                button.disabled = false;
+            }, 300000);
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "/refresh", true);
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <span id="since">Since: {{ .StartDate }}</span>
+    <div id="refresh-section">
+        <div>
+            <button id="refresh-button" onclick="requestRefresh()">Refresh</button>
+        </div>
+        <span id="last-refreshed">Last Refreshed: <span>{{ .LastRefresh }}</span></span>
+    </div>
+    <h1 id="title">{{ .Title }}</h1>
+    <br>
+    <table id="scoreboard">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Days</th>
+                <th>Problems</th>
+                <th>Score</th>
+                <th>Place</th>
+            </tr>
+        </thread>
+        <tbody>
+            {{ range .Scoreboard }}
+            <tr>
+                <td title="{{ .Username }}">{{ .DisplayName }}</td>
+                <td>{{ .Days }}</td>
+                <td>{{ .Problems }}</td>
+                <td>{{ .Score }}</td>
+                <td>{{ .Place }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <p id="copyright">© 2025 Ashish D'Souza. All rights reserved.</p>
+</body>
+</html>

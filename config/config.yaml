@@ -1,0 +1,9 @@
+start_date: 2025-11-12
+users:
+  computer_geek64: Ashish
+database:
+  host: localhost
+  port: 5432
+  username: leetcode
+  password: password
+  name: leetcode
