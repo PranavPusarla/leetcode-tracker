@@ -16,7 +16,7 @@ const scoreboardQuery = `WITH daily_cte AS (
 			CASE
 				WHEN p.difficulty = 'easy' THEN 1
 				WHEN p.difficulty = 'medium' THEN 2
-				WHEN p.difficulty = 'hard' THEN 5
+				WHEN p.difficulty = 'hard' THEN 4
 				ELSE NULL
 			END
 		) AS daily_score
